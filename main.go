@@ -1,9 +1,6 @@
 package main
 
 import (
-
-	//"github.com/tarm/serial"
-
 	"strings"
 	"time"
 
@@ -40,15 +37,15 @@ func workCOM2(port serial.Port, mode *serial.Mode) string {
 }
 
 func main() {
-	//Open the first serial port detected at 9600bps N81
 	a := app.New()
 	w := a.NewWindow("Serial-port")
-	w.Resize(fyne.NewSize(600, 600))
+	w.Resize(fyne.NewSize(800, 600))
 	entry := widget.NewMultiLineEntry()
 	entry.Wrapping = fyne.TextWrapBreak
 	answer := widget.NewLabel("")
 	answer.Wrapping = fyne.TextWrapBreak
-	descr = widget.NewLabel("The connection is established")
+	descr = widget.NewLabel("Ports are open")
+	descr.Wrapping = fyne.TextWrapBreak
 	contain := container.NewGridWithColumns(3, entry, answer, descr)
 	w.SetContent(contain)
 
@@ -80,7 +77,7 @@ func main() {
 				_, chars, _ := strings.Cut(str, strMain)
 				workCOM1(port1, mode, chars)
 				newChars := workCOM2(port2, mode)
-				//fmt.Println(newChars, "!!!")
+				descr.SetText("The connection is established")
 				strMain += newChars
 				answer.SetText(strMain)
 			}
