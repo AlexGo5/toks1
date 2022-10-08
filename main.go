@@ -16,7 +16,6 @@ var descr *widget.Label
 func catchErr() {
 	str := "ERROR [Connection is not established]\n\nInput any key to exit"
 	descr.SetText(str)
-
 }
 
 func workCOM1(port serial.Port, mode *serial.Mode, str string) {
@@ -28,7 +27,7 @@ func workCOM1(port serial.Port, mode *serial.Mode, str string) {
 
 func workCOM2(port serial.Port, mode *serial.Mode) string {
 
-	buff := make([]byte, 100)
+	buff := make([]byte, 8)
 	n, err := port.Read(buff)
 	if err != nil {
 		catchErr()
@@ -50,16 +49,16 @@ func main() {
 	w.SetContent(contain)
 
 	mode := &serial.Mode{
-		BaudRate: 9600,
+		BaudRate: 115200,
 		Parity:   serial.NoParity,
 		DataBits: 8,
 		StopBits: serial.OneStopBit,
 	}
-	port1, err := serial.Open("COM1", mode)
+	port1, err := serial.Open("COM9", mode)
 	if err != nil {
 		catchErr()
 	}
-	port2, err := serial.Open("COM2", mode)
+	port2, err := serial.Open("COM10", mode)
 	if err != nil {
 		catchErr()
 	}
